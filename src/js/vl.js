@@ -178,7 +178,7 @@ function loadBlankMod() {
 }   
 
 function kbHandler(e) {
-  if(e.keyCode==27) $('#mask, #modalContainer').remove(); 
+  if(e.keyCode==27) $('#modalmask, #modalContainer').remove();
   //alert(e);
 }
 
@@ -190,7 +190,7 @@ function displayPatternAtPos(pos, modPlayer) {
 
 var thingToDo = drawStar;
 var thingToDoCounter = 0;
-var cutOffPoint = 3;
+var cutOffPoint = 10;
 var visualStyle = -1;
 
 function setVisual(vis) {
@@ -450,7 +450,7 @@ function doModal(content) {
     $(id).css('left', winW/2-$(id).width()/2);
      
     //transition effect
-    $(id).fadeIn(2000); 
+    $(id).fadeIn(500); 
      
     //if close button is clicked
     $('#modalDialog .close').click(function (e) {
@@ -465,8 +465,9 @@ function doModal(content) {
     //    $('.window').hide();
     //});         
 }
-//var songUrl = 'http://api.virtualloops.com/songs';
-var songUrl = 'json/songs.json';
+
+var songUrl = 'http://api.virtualloops.com/songs';
+//var songUrl = 'json/songs.json';
 
 function showServerFiles() {
     $.ajax({
@@ -474,9 +475,12 @@ function showServerFiles() {
         url: songUrl,
         dataType: 'json',
         success: function (msg) {
+            msg.sort(function(a,b) { 
+              return a.songName.toLowerCase()<b.songName.toLowerCase() ? -1 : 1; 
+            });
             var modalHtml = '';
-            for (var modLoop = 0; modLoop < msg.d.length; modLoop++)
-                modalHtml += '<a href="javascript:loadModFromServer(\'' + msg.d[modLoop] + '\', \'' + msg.d[modLoop] + '\');">' + msg.d[modLoop] + '</a><br />';
+            for (var modLoop = 0; modLoop < msg.length; modLoop++)
+                modalHtml += '<a href="javascript:loadModFromServer(\'' + msg[modLoop].modId + '\', \'' + msg[modLoop].songName + '\');">' + msg[modLoop].songName + '</a><br />';
             doModal(modalHtml);
         }
     });
@@ -486,7 +490,7 @@ function loadModFromServer(modId, modName)
 {
     $('#modalmask, #modalContainer').remove();
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', 'mods/' + modId, true);
+    xhr.open('GET', songUrl + '/' + modId, true);
     xhr.responseType = 'arraybuffer';
     xhr.onload = function (e) {
         var data = xhr.response;

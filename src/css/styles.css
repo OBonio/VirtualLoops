@@ -67,7 +67,8 @@ body
 
 a
 {
-    color: #f00;
+    color: #cc0;
+    text-decoration: none;
 }
 
 .Pattern
@@ -144,7 +145,7 @@ a
 #modalDialog
 {
     background-color: #222;
-    border: solid 2px #f00;
+    border: solid 2px #222;
     border-radius: 2px;
     overflow: auto;
 }
