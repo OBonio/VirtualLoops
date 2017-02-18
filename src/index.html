@@ -1,0 +1,60 @@
+<!-- <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>	Virtual Loops - Online digital music 
+    </title>	
+    <link href="css/layout.css" type="text/css" rel="stylesheet" />
+    <link href="css/styles.css" type="text/css" rel="stylesheet" />    	
+    <script src="js/lib/jquery-1.4.2.min.js" type="text/javascript"></script>	
+    <script src="js/modfile.js" type="text/javascript"></script>	
+    <script src="js/xmfile.js" type="text/javascript"></script>	
+    <script src="js/modplayer.js" type="text/javascript"></script>	
+    <!-- <script src="js/support.js" type="text/javascript"></script> -->    	
+    <script src="js/VLAudio.js" type="text/javascript"></script>	
+    <script src="js/vl.js" type="text/javascript"></script>
+  </head>
+  <body onload="init();">    
+    <div>              
+      <div style="text-align:center;">    
+        <div class="nav">
+          <ul>
+            <li><a href="javascript:showServerFiles();">Open</a></li>
+            <li><a href="javascript:play();">Play</a>
+              <ul> 
+                <li><a href="javascript:stop();">Stop</a></li>
+              </ul>
+            </li>
+            <li><a href="javascript:void(0);">Visual</a>
+              <ul> 
+                <li><a href="javascript:setVisual(-1);">Random</a></li>
+                <li><a href="javascript:setVisual(0);">Star</a></li>
+                <li><a href="javascript:setVisual(1);">Inverted Star</a></li>
+                <li><a href="javascript:setVisual(2);">Spikey Circle</a></li>
+                <li><a href="javascript:setVisual(3);">Horizontal</a></li>
+                <li><a href="javascript:setVisual(4);">Wobbly Circle</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <div id="samples" style="display:none;">         
+          <canvas id="osci2" style="width:100%; height:100px; border: 1px solid Red; border-radius: 10px;">
+          </canvas>    
+        </div>    
+        <div id="songTitle">&nbsp;
+        </div>
+      </div>    <br clear="all" />    
+      <div id="spectrumContainer" style="margin: 0 auto; width: 1000px; height:100px;">         
+        <canvas id="spectrum" width="1000px" height="100px" style="width: 1000px; height:100px;">
+        </canvas>    
+      </div>    
+      <div id="patternHolder" class="PatternContainerContainer">      
+        <div id="patternDisplay" style="width: 10000px;" class="Pattern">
+        </div>    
+      </div>
+      <div id="osciContainer" style="margin: 0 auto; width: 1000px; height:350px;">         
+        <canvas id="osci" width="1000px" height="350px" style="width: 1000px; height:350px;">
+        </canvas>    
+      </div>    
+    </div>
+  </body>
+</html>

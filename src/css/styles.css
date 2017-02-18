@@ -1,0 +1,163 @@
+body
+{
+    font-family: Verdana;
+    font-size: 10pt;
+    background-color: #222222;
+    color: White;
+}
+
+.nav ul {
+  list-style: none;
+  background-color: #444;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+}
+
+.nav ul ul {
+  font-size: 0.8em;
+  position: absolute;
+  clear: left;
+  display: none;
+  background-color: #333333; 
+}
+
+.nav li:hover ul {
+  display: block;
+}
+
+.nav li {
+  font-family: sans-serif;
+  position: relative;
+  font-size: 1.1em;
+  line-height: 40px;
+  height: 40px;
+  border-bottom: 1px solid #888;
+}
+ 
+.nav a {
+  text-decoration: none;
+  color: #fff;
+  display: block;
+  transition: .3s background-color;
+}
+ 
+.nav a:hover {
+  background-color: #c11;
+}
+ 
+.nav a.active {
+  background-color: #fff;
+  color: #444;
+  cursor: default;
+}
+ 
+@media screen and (min-width: 600px) {
+  .nav li {
+    width: 120px;
+    border-bottom: none;
+    height: 50px;
+    line-height: 50px;
+  }
+ 
+  .nav li {
+    display: inline-block;
+  }
+}
+
+a
+{
+    color: #f00;
+}
+
+.Pattern
+{
+    background-color: #000000;
+    font-family: Lucida Console;
+    font-size: 12pt;
+    border-spacing: 1px;
+}
+
+#songTitle
+{
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.PatternChannel
+{
+}
+
+.PatternRow
+{
+}
+
+.SelectedSpan
+{
+    display: inline-block;
+    background-color: White;
+    color: Black;
+}
+
+.NoteEffect
+{
+  display:none;
+}
+
+.PatternChannel span
+{
+  padding-left: 3px;
+  padding-right: 3px;
+}
+
+.PatternDiv { background-color: Black; }
+.PatternDivA { background-color: Black; }
+.PatternDivB { background-color: Black; }
+.PatternDivC { background-color: Black; }
+.PatternDivD { background-color: Black; }
+.PatternDivE { background-color: Black; }
+.PatternDivF { background-color: Black; }
+.PatternDivG { background-color: Black; }
+
+.Label
+{
+    float: left;
+    width: 100px;
+    text-align: center;
+    text-transform:uppercase;
+}
+
+.ChannelEnabled
+{
+    background-color: LightGrey;
+    color: Black;
+    text-align: center;
+}
+
+.ChannelDisabled
+{
+    background-color: Black;
+    color: LightGrey;
+    text-align: center;
+}
+
+#modalDialog
+{
+    background-color: #222;
+    border: solid 2px #f00;
+    border-radius: 2px;
+    overflow: auto;
+}
+
+.SelectedNav
+{
+    background-color: #222222;
+    cursor: pointer;
+}
+
+.RibbonNav
+{
+    background-color: #52BFD1;
+    cursor: pointer;
+}
+
