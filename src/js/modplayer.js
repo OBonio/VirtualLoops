@@ -224,14 +224,6 @@ function ModPlayer(mod, rate, rowCallback, posCallback, midiCallback) {
 	    var retVal = '<div class="PatternContainer">';
 	    var thePattern = mod.patterns[mod.positions[pos]];
 	    var note;
-	    //retVal += '<div class="PatternRow">';
-	    //for (var rowLoop = 0; rowLoop < thePattern.length; rowLoop++) {
-	    //    rowNum = rowLoop.toString(16).toUpperCase();
-	    //    if (rowNum.length == 1)
-	    //        rowNum = '0' + rowNum;
-	    //    retVal += '<div>' + rowNum + '</div>';
-	    //}
-	    //retVal += '</div>';
 
 	    for (var chanLoop = 0; chanLoop < thePattern[0].length; chanLoop++) {
 	        retVal += '<div id="channel' + chanLoop + '" class="PatternChannel">';
@@ -411,10 +403,13 @@ function ModPlayer(mod, rate, rowCallback, posCallback, midiCallback) {
 			if (patternBreak) {
 				patternBreak = false;
 				getNextPosition();
-			}
-			getNextRow();
-		}
-	}
+      }
+      else
+      {
+        getNextRow();
+      }
+    }
+  }
 
 	this.getSamples = function (sampleCount) {
 		samples = [];
