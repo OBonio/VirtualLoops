@@ -1,6 +1,6 @@
 var currentRow = 0;
 var currentPos = 0;
-var audio = new VLAudio(nextRow, displayPatternAtPos, midiController);
+var audio;
 var osci; // oscilloscope canvas
 var osciContext;
 var osciGradient, ptGradient;
@@ -14,8 +14,14 @@ window.onerror = function (errorMsg, url, lineNumber) {
     alert('Error: ' + errorMsg + ' Script: ' + url + ' Line: ' + lineNumber);
 }
 
+function getAudio() {
+  if(!audio)
+    audio = new VLAudio(nextRow, displayPatternAtPos, midiController);
+  return audio;
+}
+
 function play() {
-    audio.play();
+    getAudio().play();
     drawAudio();
 }
 
@@ -28,18 +34,19 @@ function drawAudio()
     drawSample(osciContext, data);
     var img = osciContext.getImageData(0,0,osciContext.canvas.width,osciContext.canvas.height);
     document.getElementById('osci').getContext('2d').putImageData(img, 0, 0);
-    
+
     data = audio.getFftBuffer();
     drawSpectrum(osciContext, data);
     img = osciContext.getImageData(0,0,osciContext.canvas.width,osciContext.canvas.height);
     document.getElementById('spectrum').getContext('2d').putImageData(img, 0, 0);
-          
+
     window.requestAnimationFrame(drawAudio);
   }
 }
 
 function stop() {
-    audio.stop();
+    if(audio)
+      audio.stop();
 }
 
 function showNav(id) {
@@ -83,7 +90,7 @@ function loadLocal(file) {
                     break;
             }
             if(modFile)
-                audio.load(modFile);
+                getAudio().load(modFile);
         };
     })(file);
     reader.readAsBinaryString(file);
@@ -101,7 +108,7 @@ function loadMod(filename, data) {
     }
     if (modFile) {
         $('#songTitle').html(modFile.getName());
-        audio.load(modFile);
+        getAudio().load(modFile);
     }
 }
 
@@ -111,7 +118,7 @@ function init() {
     loadBlankMod();
     //configureMidi();
     document.addEventListener('keydown', kbHandler, false);
-    
+
     osci = document.createElement('canvas'); // oscilloscope canvas
     osci.width = 1000;
     osci.height = 100;
@@ -173,9 +180,10 @@ function loadBlankMod() {
     else
     {
       var modFile = new ModFile();
-      audio.load(modFile);
+      if(audio)
+	audio.load(modFile);
     }
-}   
+}
 
 function kbHandler(e) {
   if(e.keyCode==27) $('#modalmask, #modalContainer').remove();
@@ -466,8 +474,8 @@ function doModal(content) {
     //});         
 }
 
-var songUrl = 'http://api.virtualloops.com/songs';
-//var songUrl = 'json/songs.json';
+//var songUrl = 'http://api.virtualloops.com/songs';
+var songUrl = 'json/songs.json';
 
 function showServerFiles() {
     $.ajax({
@@ -475,12 +483,12 @@ function showServerFiles() {
         url: songUrl,
         dataType: 'json',
         success: function (msg) {
-            msg.sort(function(a,b) { 
-              return a.songName.toLowerCase()<b.songName.toLowerCase() ? -1 : 1; 
-            });
+            //msg.sort(function(a,b) { 
+            //  return a.toLowerCase()<b.toLowerCase() ? -1 : 1; 
+            //});
             var modalHtml = '';
-            for (var modLoop = 0; modLoop < msg.length; modLoop++)
-                modalHtml += '<a href="javascript:loadModFromServer(\'' + msg[modLoop].modId + '\', \'' + msg[modLoop].songName + '\');">' + msg[modLoop].songName + '</a><br />';
+            for (var modLoop = 0; modLoop < msg.d.length; modLoop++)
+                modalHtml += '<a href="javascript:loadModFromServer(\'' + modLoop + '\', \'' + msg.d[modLoop] + '\');">' + msg.d[modLoop] + '</a><br />';
             doModal(modalHtml);
         }
     });
@@ -490,7 +498,7 @@ function loadModFromServer(modId, modName)
 {
     $('#modalmask, #modalContainer').remove();
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', songUrl + '/' + modId, true);
+    xhr.open('GET', '/mods/' + modName, true);
     xhr.responseType = 'arraybuffer';
     xhr.onload = function (e) {
         var data = xhr.response;
